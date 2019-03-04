@@ -12,24 +12,29 @@ import { BookShort } from './shared/models/book-short.model';
 export class AppComponent implements OnInit {
   title = 'app';
   searchTerm: string;
-  searchInProgress: boolean;
+  searchInProgress: boolean = false;
+  noBooksFound: boolean = false;
   books: BookShort[];
 
   constructor(private googleApiService: GoogleApiService) {}
 
-  ngOnInit() {
-    this.searchInProgress = false;
-  }
+  ngOnInit() {}
 
   performSearch() {
     if (this.searchTerm == '') {
       return;
     }
     this.searchInProgress = true;
+    this.noBooksFound = false;
     this.googleApiService.search(this.searchTerm).subscribe(
       ((books: BookShort[]) => {
         console.log("Books found", books);
-        this.books = books;
+        if (books.length > 0) {
+          this.books = books;
+        } else {
+          this.books = [];
+          this.noBooksFound = true;
+        }
         this.searchInProgress = false;
       }),
       ((error: HttpErrorResponse) => {

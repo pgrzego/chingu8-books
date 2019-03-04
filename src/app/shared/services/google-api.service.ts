@@ -56,6 +56,9 @@ export class GoogleApiService {
             {'params': params}
         ).pipe(
             map((receivedData: BookListShortInterface): BookShort[] => {
+                if (Object.keys(receivedData).length == 0) {
+                    return [];
+                }
                 return receivedData.items.map((bookInfo) => {
                     const imgRef = bookInfo.volumeInfo.imageLinks?bookInfo.volumeInfo.imageLinks.thumbnail:"";
                     const book = new BookShort(
