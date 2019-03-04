@@ -1,0 +1,22 @@
+header {
+    text-align: center;
+    padding-top: 180px;
+}
+
+header.small {
+    padding-top: 10px;
+}
+
+header img {
+    width: 100px;
+    margin: 0 auto 35px;
+}
+
+header.small img {
+    width: 50px;
+    margin: 0 auto 5px;
+}
+
+title {
+    display: block;
+}
